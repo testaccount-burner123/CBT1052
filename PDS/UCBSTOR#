@@ -1,0 +1,51 @@
+)F FUNCTION -
+
+  The TSO command UCBSTOR will convert an online DASD volume
+  attribute to STORAGE.  The effect will last until the next
+  IPL, at which time the VATLSTxx PARMLIB settings will be
+  reestablished.
+
+  THE UCBSTOR TSO COMMAND HAS TO BE APF-AUTHORIZED.
+
+)S SYNTAX
+
+       UCBSTOR  |  A
+
+  DEFAULTS - NONE
+  ALIAS    - NONE
+
+
+)O OPERANDS -
+
+   A  -  gives a display of all mounted volumes in the system,
+         including the volume changed.
+
+
+
+Example:  UCBSTOR
+
+       The user will be prompted for a 6-character volser to
+       change.  If it exists, you get the following display:
+
+
+              UCBSTOR - V1.7 - CONVERT VOLUME TO STOR
+              -------   ----   ------- ------ -- ----
+ Unit  Volser  DevTyp Cylinder  Mount  UCB Addr   Attribs  Res DCE Addr  SMS
+ ----  ------  ------ --------  -----  --------   -------  --- --------  ---
+Enter 6-digit VOLSER
+WORK07
+ 0AA6  WORK07  3390-1    1113   STOR   00F4DE60  ALLC PERM     00F4DDF0
+READY
+
+
+If the entered volume is not found, you will not get a volser
+display:
+
+              UCBSTOR - V1.7 - CONVERT VOLUME TO STOR
+              -------   ----   ------- ------ -- ----
+ Unit  Volser  DevTyp Cylinder  Mount  UCB Addr   Attribs  Res DCE Addr  SMS
+ ----  ------  ------ --------  -----  --------   -------  --- --------  ---
+Enter 6-digit VOLSER
+ZZZZZZ
+READY
+

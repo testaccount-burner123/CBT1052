@@ -1,0 +1,83 @@
+How this file came about.....
+
+    My friend Gilbert Saint-flour was a genius MVS programmer,
+who spent a long time studying the internals of MVS, through the
+year 2011, when he tragically passed away at the young age of 61.
+Among other things Gilbert did, he produced the file of free
+programs--CBT File 183.
+
+    Gilbert had his own business, together with 6 or 7 other
+people, and he owned a P390 machine, which they bought at full
+price, from IBM.  Gilbert produced both free tools for the public
+to use, and "pay tools" which he licensed to customers.  His
+principal business was to convert large installations from VSE to
+MVS, which he ran, together with his partners.
+
+    Gilbert was the author of the SHOWMVS program, which later
+came to be called SHOWzOS, and which is now maintained by my dear
+friend Roland Schiradin.  SHOWzOS displays MANY MANY internal
+facts and quantities connected with your MVS (z/OS) system.  One
+of the things displayed is a lot of information about the DASD
+(disk packs) which are attached to the system.  Gilbert wanted to
+get this display from the REAL UCB's (Unit Control Blocks), and
+he also wanted to get that information NON APF-AUTHORIZED.  The
+UCB's contain the information that Gilbert wanted to display.
+
+    It seems that in earlier versions of MVS, that the macro
+UCBSCAN (which got the UCB information) would run un-authorized,
+but in later versions, especially in ESA and in z/OS, IBM forced
+the normal UCB scans, run by problem programs, to get only a COPY
+of the UCB information, rather than the REAL UCB's.  In order to
+get the REAL UCB's, your program had to be APF-authorized.
+
+    For the purposes of SHOWMVS, Gilbert was unsatisfied with this
+state of affairs, and he looked for a way to get the REAL UCB's
+using an un-authorized program.
+
+    At that time, most system programmers and developers were not
+allowed (by IBM) to call up IBM developers and talk to them.  IBM
+simply did not allow it.  All of us systems programmers had that
+problem.  (Nowadays, if we sign a non-disclosure agreement with
+IBM, they allow us to talk to their developers, but in former
+times, it was difficult.)
+
+    We therefore had a trick.  If we wanted to talk to an IBM
+developer and ask a QUESTION, we would rephrase the question as a
+PROBLEM, and then escalate the PROBLEM to "Level 2", where
+developers would address the issue.  That was our way to access
+the developers.  Otherwise, we couldn't talk to them.
+
+    Gilbert told me that he did this a bunch of times, and in that
+way, he discovered the ULUT (UCB Lookup Table), whose whereabouts
+IBM hid, because they changed its location several times, and they
+didn't want customers to use it as a programming interface.  You
+can access the ULUT, which points to all the UCB's (the REAL ones)
+on the system, without being APF-authorized.  This is the method
+that Gilbert uses in SHOWzOS.
+
+    After Gilbert passed away, I didn't want people to forget the
+wonderful work that Gilbert did.  As a way to memorialize him, I
+wrote a program called UCBDASD, which displays all the disk
+devices on the system, and which uses Gilbert's method of
+accessing their UCB's.  UCBDASD gets the REAL UCB's, and displays
+a lot of the information within them.
+
+    Much later, I discovered that since the UCBDASD program gives
+access to the REAL UCB's, then if you zap one of these UCB's to
+change its properties (you have to be authorized to change a UCB).
+I saw that the change is permanent (till the next IPL, when the
+VATLSTxx parmlib member is reestablished), and with a few slight
+changes, the UCBDASD program could be adjusted so that it would
+be able to change the (PRIVATE, PUBLIC, or STORAGE) properties of
+the online disk packs.  We now have a (TSO command) way of doing
+this without having to issuc a console MOUNT command.  Cool.  You
+might need it in a pinch.
+
+    So that explains the origin of this file.  It was created to
+perpetuate Gilbert's memory.  Good luck in using it.
+
+    All the best of everything to all of you.....
+
+Sincerely,   Sam Golob      sbgolob@cbttape.org    (Mar 18, 2024)
+
+

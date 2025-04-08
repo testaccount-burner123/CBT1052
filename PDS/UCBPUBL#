@@ -1,0 +1,51 @@
+)F FUNCTION -
+
+  The TSO command UCBPUBL will convert an online DASD volume
+  attribute to PUBLIC.   The effect will last until the next
+  IPL, at which time the VATLSTxx PARMLIB settings will be
+  reestablished.
+
+  THE UCBPUBL TSO COMMAND HAS TO BE APF-AUTHORIZED.
+
+)S SYNTAX
+
+       UCBPUBL  |  A
+
+  DEFAULTS - NONE
+  ALIAS    - NONE
+
+
+)O OPERANDS -
+
+   A  -  gives a display of all mounted volumes in the system,
+         including the volume changed.
+
+
+
+Example:  UCBPUBL
+
+       The user will be prompted for a 6-character volser to
+       change.  If it exists, you get the following display:
+
+
+              UCBPUBL - V1.7 - CONVERT VOLUME TO PUBL
+              -------   ----   ------- ------ -- ----
+ Unit  Volser  DevTyp Cylinder  Mount  UCB Addr   Attribs  Res DCE Addr  SMS
+ ----  ------  ------ --------  -----  --------   -------  --- --------  ---
+Enter 6-digit VOLSER
+WORK07
+ 0AA6  WORK07  3390-1    1113   PUBL   00F4DE60  ALLC PERM     00F4DDF0
+READY
+
+
+If the entered volume is not found, you will not get a volser
+display:
+
+              UCBPUBL - V1.7 - CONVERT VOLUME TO PUBL
+              -------   ----   ------- ------ -- ----
+ Unit  Volser  DevTyp Cylinder  Mount  UCB Addr   Attribs  Res DCE Addr  SMS
+ ----  ------  ------ --------  -----  --------   -------  --- --------  ---
+Enter 6-digit VOLSER
+ZZZZZZ
+READY
+
